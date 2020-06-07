@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'proxy_service_provider.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'proxy_service_provider',
-        'NAME': 'proxy_service_provider_rw',
+        'USER': 'proxy_service_provider_rw',
+        'NAME': 'proxy_service_provider',
         'PASSWORD': 'mae3Feevoh',
         'PORT': '5432',
         'HOST': 'pgsql.hrz.tu-chemnitz.de',

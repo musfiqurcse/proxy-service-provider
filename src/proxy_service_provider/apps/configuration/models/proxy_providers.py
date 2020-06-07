@@ -2,7 +2,7 @@ from django.db import models
 
 
 
-class ProxyProvider(models.Model):
+class ProxyProviders(models.Model):
 
     proxy_provider_address = models.CharField(name='Proxy Provider Address', max_length=120, unique=True)
     # A timestamp for representing when this object was created
