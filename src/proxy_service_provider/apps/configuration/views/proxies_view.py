@@ -9,7 +9,6 @@ class ProxyProviderView(APIView):
 
     def post(self, request, *args, **kwargs):
         try:
-
             pass
         except Exception as ex:
             print(ex)

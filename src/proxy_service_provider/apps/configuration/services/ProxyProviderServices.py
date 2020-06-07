@@ -6,6 +6,7 @@ from rest_framework.exceptions import NotFound
 
 class ProxyProviderService:
 
+    # Service for create new Proxy
     def create_proxy(self, data: dict):
         try:
             serialized_data = ProxyProviderSerializer(data=data)
