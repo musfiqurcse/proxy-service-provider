@@ -7,6 +7,7 @@ from proxy_service_provider.apps.core.utils.response_utils import OutputMaker
 from proxy_service_provider.apps.configuration.services.ProxyProviderServices import ProxyProviderService,ProxyProviderSerializer
 from rest_framework.response import Response
 
+from proxy_service_provider.apps.configuration.services.proxy_fetcher import ProxyFetching
 class ProxyProviderView(ModelViewSet):
     permission_classes = (AllowAny, )
     queryset = ProxyProviders.objects.all()
@@ -18,7 +19,15 @@ class ProxyProviderView(ModelViewSet):
             # TODO: Implement the POST Request.
             output_maker = OutputMaker()
             proxy_service_provider = ProxyProviderService()
-            output = proxy_service_provider.create_proxy(request.data.get('data'))
+            output = {
+                'status': False,
+                'output': {}
+            }
+            # output = proxy_service_provider.create_proxy(request.data.get('data'))
+            # Buffer Code
+            chk = ProxyFetching()
+            res = chk.fetch_data_from_proxy(url='https://proxyservers.pro/',https_check=False)
+            # Buffer Code End
             if output['status'] == True:
                 response_data = output_maker.response_builder(message="",result="success",output=output['output'])
                 return Response(response_data, status=status.HTTP_201_CREATED)

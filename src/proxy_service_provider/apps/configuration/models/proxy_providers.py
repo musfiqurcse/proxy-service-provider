@@ -16,5 +16,5 @@ class ProxyProviders(models.Model):
     # A timestamp for representing when this object was last updated
     updated_time = models.DateTimeField(auto_now=True)
 
-    # todo: add proxy list time interval for update the list
+    # TODO: add proxy list time interval for update the list
 
