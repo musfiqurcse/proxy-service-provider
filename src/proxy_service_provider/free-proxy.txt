@@ -1,10 +1,10 @@
 http://free-proxy.cz/en/
 http://www.freeproxylists.net/
-https://www.proxynova.com/proxy-server-list/
+https://www.proxynova.com/proxy-server-list/elite-proxies/
 https://premproxy.com/list/
 https://www.proxy-list.download/HTTPS
 https://free-proxy-list.com/
-
+https://www.sslproxies.org/
 
 https://proxyservers.pro/
 https://www.proxydocker.com/en/proxylist/
@@ -12,4 +12,9 @@ https://proxygather.com/
 http://nntime.com/
 https://proxytools.online/proxy-list/
 https://hidemy.life/en/proxy-list-servers
+
+
+API
+
+https://www.proxy-list.download/api/v0/get?l=en&t=https
 
