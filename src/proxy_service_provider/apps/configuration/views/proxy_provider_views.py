@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from proxy_service_provider.apps.configuration.models.proxy_providers import ProxyProviders
 from proxy_service_provider.apps.core.utils.response_utils import OutputMaker
-from proxy_service_provider.apps.configuration.services.ProxyProviderServices import ProxyProviderService,ProxyProviderSerializer
+from proxy_service_provider.apps.configuration.services.proxy_list_provider_services import ProxyProviderService,ProxyProviderSerializer
 from rest_framework.response import Response
 
 from proxy_service_provider.apps.configuration.services.proxy_fetcher import ProxyFetching

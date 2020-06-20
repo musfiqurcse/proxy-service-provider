@@ -8,8 +8,8 @@ class Proxies(TimestampedModel):
     ip_address = models.CharField(max_length=60, blank=True,null=True)
     port_number = models.CharField(max_length=60, blank=True,null=True)
     last_successful_functionality_test = models.DateTimeField()
-    last_found = models.DateTimeField()
-    first_found = models.DateTimeField()
+    last_found = models.DateTimeField(auto_now=True)
+    first_found = models.DateTimeField(auto_now_add=True)
     latest_functional_test_url = models.CharField(blank=True, null=True, max_length=120)
 
 

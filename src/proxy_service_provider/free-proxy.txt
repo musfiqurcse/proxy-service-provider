@@ -6,7 +6,7 @@ https://www.proxy-list.download/HTTPS [done]
 https://free-proxy-list.com/ [ port_not_catacable ]
 https://www.sslproxies.org/ [*****] [done]
 
-https://proxyservers.pro/
+https://proxyservers.pro/proxy/list/speed/2/protocol/https/anonymity/elite/order/updated/order_dir/desc/page/
 https://www.proxydocker.com/en/proxylist/type/https [19] [done]
 https://proxygather.com/
 http://nntime.com/ [not captured]
