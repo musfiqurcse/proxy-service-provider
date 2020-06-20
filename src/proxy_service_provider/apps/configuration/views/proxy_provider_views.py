@@ -18,6 +18,7 @@ class ProxyProviderView(ModelViewSet):
         try:
             # TODO: Implement the POST Request.
             output_maker = OutputMaker()
+            data = request.data.get('data')
             proxy_service_provider = ProxyProviderService()
             output = {
                 'status': False,
@@ -26,7 +27,7 @@ class ProxyProviderView(ModelViewSet):
             # output = proxy_service_provider.create_proxy(request.data.get('data'))
             # Buffer Code
             chk = ProxyFetching()
-            res = chk.fetch_data_from_proxy(url='https://proxyservers.pro/',https_check=False)
+            res = chk.fetch_data_from_proxy(url=data['proxy_provider_address'],https_check=data['https'])
             # Buffer Code End
             if output['status'] == True:
                 response_data = output_maker.response_builder(message="",result="success",output=output['output'])

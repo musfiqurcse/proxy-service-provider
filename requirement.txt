@@ -5,3 +5,5 @@ django-filter
 beautifulsoup4
 requests
 psycopg2
+lxml
+selenium
