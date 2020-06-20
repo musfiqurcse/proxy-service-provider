@@ -1,17 +1,17 @@
 http://free-proxy.cz/en/
-http://www.freeproxylists.net/
-https://www.proxynova.com/proxy-server-list/elite-proxies/
+http://www.freeproxylists.net/?c=&pt=&pr=HTTPS&a%5B%5D=0&a%5B%5D=1&a%5B%5D=2&u=0 [not -reliable]
+https://www.proxynova.com/proxy-server-list/elite-proxies/  [Javascript]  [done]
 https://premproxy.com/list/
-https://www.proxy-list.download/HTTPS
-https://free-proxy-list.com/
-https://www.sslproxies.org/
+https://www.proxy-list.download/HTTPS [done]
+https://free-proxy-list.com/ [ port_not_catacable ]
+https://www.sslproxies.org/ [*****] [done]
 
 https://proxyservers.pro/
-https://www.proxydocker.com/en/proxylist/
+https://www.proxydocker.com/en/proxylist/type/https [19] [done]
 https://proxygather.com/
-http://nntime.com/
-https://proxytools.online/proxy-list/
-https://hidemy.life/en/proxy-list-servers
+http://nntime.com/ [not captured]
+https://proxytools.online/proxy-list/ [18][done]
+https://hidemy.life/en/proxy-list-servers[200] [done]
 
 
 API

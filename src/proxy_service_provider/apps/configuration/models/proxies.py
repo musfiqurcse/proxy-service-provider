@@ -13,3 +13,4 @@ class Proxies(TimestampedModel):
     latest_functional_test_url = models.CharField(blank=True, null=True, max_length=120)
 
 
+
