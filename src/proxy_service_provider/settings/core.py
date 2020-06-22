@@ -75,19 +75,19 @@ WSGI_APPLICATION = 'proxy_service_provider.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'proxy_service_provider_rw',
-        'NAME': 'proxy_service_provider',
-        'PASSWORD': 'mae3Feevoh',
-        'PORT': '5432',
-        'HOST': 'pgsql.hrz.tu-chemnitz.de',
-        'TEST': {
-            'NAME': 'proxy_service_provider_test',
-        },
-    },
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'USER': 'proxy_service_provider_rw',
+#         'NAME': 'proxy_service_provider',
+#         'PASSWORD': 'mae3Feevoh',
+#         'PORT': '5432',
+#         'HOST': 'pgsql.hrz.tu-chemnitz.de',
+#         'TEST': {
+#             'NAME': 'proxy_service_provider_test',
+#         },
+#     },
+# }
 
 
 # Password validation
@@ -127,3 +127,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proxy_db',
+        'USER': 'musfiq',
+        'PASSWORD': 'm123456',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}

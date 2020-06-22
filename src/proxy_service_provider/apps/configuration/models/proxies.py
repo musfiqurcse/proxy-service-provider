@@ -5,12 +5,12 @@ from proxy_service_provider.apps.configuration.models.proxy_providers import Pro
 class Proxies(TimestampedModel):
 
     proxy_provider_id = models.ForeignKey(ProxyProviders, related_name='proxy_providers_proxy_ids', on_delete=models.CASCADE)
-    ip_address = models.CharField(max_length=60, blank=True,null=True)
+    ip_address = models.CharField(max_length=60, blank=True,null=True, unique=True)
     port_number = models.CharField(max_length=60, blank=True,null=True)
-    last_successful_functionality_test = models.DateTimeField()
-    last_found = models.DateTimeField(auto_now=True)
-    first_found = models.DateTimeField(auto_now_add=True)
-    latest_functional_test_url = models.CharField(blank=True, null=True, max_length=120)
+    last_successful_functionality_test = models.DateTimeField(blank=True,null=True)
+    last_found = models.DateTimeField( blank=True,null=True)
+    first_found = models.DateTimeField( blank=True,null=True)
+
 
 
 

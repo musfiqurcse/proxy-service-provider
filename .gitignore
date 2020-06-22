@@ -135,3 +135,39 @@ stats.json
 npm-debug.log
 .idea
 web_app/app/static
+
+
+
+
+
+# FRON-END PART
+
+
+
+
+.DS_Store
+front-end/node_modules
+front-end/dist
+front-end/coverage
+
+front-end/tests/e2e/reports/
+front-end/selenium-debug.log
+front-end/chromedriver.log
+
+# local env files
+front-end/.env.local
+front-end/.env.*.local
+
+# Log files
+front-end/npm-debug.log*
+front-end/yarn-debug.log*
+front-end/yarn-error.log*
+
+# Editor directories and files
+front-end/.idea
+front-end/.vscode
+front-end/*.suo
+front-end/*.ntvs*
+front-end/*.njsproj
+front-end/*.sln
+front-end/*.sw*

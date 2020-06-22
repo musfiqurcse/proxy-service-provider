@@ -2,6 +2,7 @@ from proxy_service_provider.apps.configuration.serializers.proxy_service_provide
 from django.core.serializers import serialize
 import json
 from rest_framework.exceptions import NotFound
+from proxy_service_provider.apps.configuration.services.proxy_fetcher import ProxyFetching
 
 
 class ProxyProviderService:
@@ -14,6 +15,9 @@ class ProxyProviderService:
                 main_data = serialized_data.save()
                 struct_data = json.loads(serialize('json', [main_data , ]))
                 output_result = struct_data[0]['fields']
+                chk = ProxyFetching()
+                jk = chk.fetch_data_from_proxy(url=data['proxy_provider_address'],https_check=data['https'])
+                output_result['']
                 response = {
                     'status': True,
                     'output': output_result
