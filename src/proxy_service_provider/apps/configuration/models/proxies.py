@@ -4,7 +4,7 @@ from proxy_service_provider.apps.configuration.models.proxy_providers import Pro
 
 class Proxies(TimestampedModel):
 
-    proxy_provider_id = models.ForeignKey(ProxyProviders, related_name='proxy_providers_id', on_delete=models.CASCADE)
+    proxy_provider_id = models.ForeignKey(ProxyProviders, related_name='proxy_providers_proxy_ids', on_delete=models.CASCADE)
     ip_address = models.CharField(max_length=60, blank=True,null=True)
     port_number = models.CharField(max_length=60, blank=True,null=True)
     last_successful_functionality_test = models.DateTimeField()
