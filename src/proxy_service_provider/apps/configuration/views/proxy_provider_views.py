@@ -6,8 +6,11 @@ from proxy_service_provider.apps.configuration.models.proxy_providers import Pro
 from proxy_service_provider.apps.core.utils.response_utils import OutputMaker
 from proxy_service_provider.apps.configuration.services.proxy_list_provider_services import ProxyProviderService,ProxyProviderSerializer
 from rest_framework.response import Response
-
+from rest_framework.decorators import action
 from proxy_service_provider.apps.configuration.services.proxy_fetcher import ProxyFetching
+
+
+
 class ProxyProviderView(ModelViewSet):
     permission_classes = (AllowAny, )
     queryset = ProxyProviders.objects.all()
@@ -15,6 +18,37 @@ class ProxyProviderView(ModelViewSet):
 
 
     def create(self, request):
+        try:
+            # TODO: Implement the POST Request.
+            output_maker = OutputMaker()
+            data = request.data.get('data')
+            proxy_service_provider = ProxyProviderService()
+            output = {
+                'status': False,
+                'output': {}
+            }
+            output = proxy_service_provider.create_proxy(request.data.get('data'))
+            # Buffer Code
+            # chk = ProxyFetching()
+            # res = chk.fetch_data_from_proxy(url=data['proxy_provider_address'],https_check=data['https'])
+            # Buffer Code End
+            if output['status'] == True:
+                response_data = output_maker.response_builder(message="",result="success",output=output['output'])
+                return Response(response_data, status=status.HTTP_201_CREATED)
+            else:
+                response_data = output_maker.response_builder(message=output['output'], result='error', output={})
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as ex:
+            print(ex)
+            return Response({
+                'message': "Error occured while processing the request. Server Error",
+                'status': 'error',
+                'output': {}
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+    @action(detail=False, methods=['PUT'], url_name='Update Proxy List Provider', url_path='update-proxy')
+    def update_proxy(self, request, **kw):
         try:
             # TODO: Implement the POST Request.
             output_maker = OutputMaker()
@@ -42,6 +76,9 @@ class ProxyProviderView(ModelViewSet):
                 'status': 'error',
                 'output': {}
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
 
 
 
