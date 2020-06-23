@@ -57,7 +57,14 @@ class ProxyFetching():
         for item in soup.select("table tr"):
             # First td always hold the ip address, hence, we are extracting the first td and removing the unwanted space
             # (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?=[^\d])\s*:?\s*(\d{2,5})
-            cond1 = 'yes' in item.text or 'HTTPS' in item.text or 'https' in item.text if not https_check else https_check
+            cond1 = 'elite' in item.text or \
+                    'Elite' in item.text or \
+                    'ELITE' in item.text or \
+                    'yes' in item.text or \
+                    'HTTPS' in item.text or \
+                    'https' in item.text \
+                if not https_check \
+                else https_check
             cond2 = re.search("(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?=[^\d])\s*", str(item))
             # cond2 =
             try:

@@ -18,3 +18,15 @@ class ProxiesSerializer(ModelSerializer):
             'first_found'
         )
 
+
+
+    def validate_ip_address(self,data):
+        if self.instance is None:
+            proxy= Proxies.objects.filter(ip_address=data)
+            if len(proxy) > 0:
+                raise serializers.ValidationError("This IP Address is already exist")
+        else:
+            proxy= Proxies.objects.filter(ip_address=data)
+            if len(proxy) > 0 and self.instance.ip_address != data:
+                raise serializers.ValidationError("This IP Address is already exist")
+
