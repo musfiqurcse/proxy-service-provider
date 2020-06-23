@@ -10,6 +10,7 @@ class Proxies(TimestampedModel):
     last_successful_functionality_test = models.DateTimeField(blank=True,null=True)
     last_found = models.DateTimeField( blank=True,null=True)
     first_found = models.DateTimeField( blank=True,null=True)
+    is_tested = models.BooleanField('Is Proxy Tester', default=False)
 
 
 
