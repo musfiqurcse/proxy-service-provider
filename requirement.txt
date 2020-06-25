@@ -8,3 +8,4 @@ psycopg2
 lxml
 selenium
 fake-useragent
+django-cors-headers

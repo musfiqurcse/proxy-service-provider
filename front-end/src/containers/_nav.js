@@ -14,6 +14,22 @@ export default [
       },
       {
         _name: 'CSidebarNavTitle',
+        _children: ['Proxy Service Management']
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Proxy List Provider',
+        to: '/proxy-providers/list',
+        icon: 'cil-drop'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Typography',
+        to: '/theme/typography',
+        icon: 'cil-pencil'
+      },
+      {
+        _name: 'CSidebarNavTitle',
         _children: ['Theme']
       },
       {

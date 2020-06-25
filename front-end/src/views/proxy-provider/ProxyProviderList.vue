@@ -1,95 +1,75 @@
 <template>
     <div>
         <CRow>
-         <CCol sm="24" md="12">
-        <CCard>
-          <CCardHeader>
-            List of Proxy Providers
-            <div class="card-header-actions">
-              <a
-                href="https://coreui.io/vue/docs/components/card-components"
-                class="card-header-action"
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                <small class="text-muted">docs</small>
-              </a>
-            </div>
-          </CCardHeader>
-          <CCardBody>
-            {{loremIpsum}}
-          </CCardBody>
-        </CCard>
-      </CCol>
-<!--            <CCol sm="6" md="4">-->
-<!--        <CCard>-->
-<!--          <CCardBody>{{loremIpsum}}</CCardBody>-->
-<!--          <CCardFooter>Card Footer</CCardFooter>-->
-<!--        </CCard>-->
-<!--      </CCol>-->
-<!--      <CCol sm="6" md="4">-->
-<!--        <CCard>-->
-<!--          <CCardHeader><CIcon name="cil-check"/> Card with icon</CCardHeader>-->
-<!--          <CCardBody>{{loremIpsum}}</CCardBody>-->
-<!--        </CCard>-->
-<!--      </CCol>-->
-<!--      <CCol sm="6" md="4">-->
-<!--        <CCard>-->
-<!--          <CCardHeader>-->
-<!--            Card with switch-->
-<!--            <CSwitch-->
-<!--              class="float-right"-->
-<!--              size="sm"-->
-<!--              shape="pill"-->
-<!--              color="info"-->
-<!--              data-on="On"-->
-<!--              data-off="Off"-->
-<!--              :checked="true"-->
-<!--            />-->
-<!--          </CCardHeader>-->
-<!--          <CCardBody>-->
-<!--            {{loremIpsum}}-->
-<!--          </CCardBody>-->
-<!--        </CCard>-->
-<!--      </CCol>-->
-<!--      <CCol sm="6" md="4">-->
-<!--        <CCard>-->
-<!--          <CCardHeader>-->
-<!--            Card with label-->
-<!--            <CBadge color="success" class="float-right">Success</CBadge>-->
-<!--          </CCardHeader>-->
-<!--          <CCardBody>-->
-<!--            {{loremIpsum}}-->
-<!--          </CCardBody>-->
-<!--        </CCard>-->
-<!--      </CCol>-->
-<!--      <CCol sm="6" md="4">-->
-<!--        <CCard>-->
-<!--          <CCardHeader>-->
-<!--            Card with label-->
-<!--            <CBadge shape="pill" color="danger" class="float-right">42</CBadge>-->
-<!--          </CCardHeader>-->
-<!--          <CCardBody>-->
-<!--            {{loremIpsum}}-->
-<!--          </CCardBody>-->
-<!--        </CCard>-->
-<!--      </CCol>-->
-    </CRow>
+            <CCol sm="24" md="12">
+                <CCard>
+                    <CCardHeader>
+                        <h3> Proxy Providers </h3>
+                    </CCardHeader>
+                    <CCardBody>
+                        <CCol lg="12">
+                            <CDataTable :items="proxy_providers" :fields=table_field
+                                        striped
+                                        fixed
+                                        bordered
+                            >
+                            <template #show_details="{item, index}">
+                                <td class="py-2">
+                                    <CButton
+                                            color="success"
+                                            square
+                                            size="sm"
+                                            @click="toggleDetails(item, index)"
+                                    >
+                                        Details
+                                    </CButton>
+                                </td>
+                            </template>
+                                <template #header>
+                                    <CIcon name="cil-description"/> List of Proxy Service Provider
+
+                                </template>
+                            </CDataTable>
+                        </CCol>
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
     </div>
 </template>
 
 
 
 <script>
+    import CTableWrapper from '../base/Table.vue'
+    window.axios = require('axios')
+    export default {
+        name: 'ProxyProviderList',
+        components: { CTableWrapper },
+        mounted: function(){
+            const field = this
+            axios.get('http://localhost:8000/api/proxy-service-provider/list/').then(function(response){
+                    field.proxy_providers = response.data.output
+                    console.log(response.data.output)
+                }
+            ).catch(error => this.proxy_providers = {
+                'error': 'Error Occurred'
+            })
+        },
+        data: function () {
+            return {
+                show: true,
+                isCollapsed: true,
+                proxy_providers: null,
+                table_field: ["proxy_provider_address", "is_https_filtered", "updated_time", {
+                    key: 'show_details',
+                    label: '',
+                    _style: 'width:1%',
+                    sorter: false,
+                    filter: false
+                }]
 
-export default {
-  name: 'ProxyProviderList',
-  data: function () {
-    return {
-      show: true,
-      isCollapsed: true,
-      loremIpsum: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+            }
+        }
     }
-  }
-}
 </script>
