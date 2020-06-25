@@ -9,7 +9,7 @@ class ProxyProviders(models.Model):
     # Auto Detect HTTPS
     is_https_filtered = models.BooleanField('Is HTTPS Filtered in the list', default=True)
     # Last Updated Proxy List time
-    last_updated_proxy_list = models.DateTimeField(blank=True, null=True,auto_now=True)
+    # last_updated_proxy_list = models.DateTimeField(blank=True, null=True,auto_now=True)
 
     # A timestamp for representing when this object was created
     created_time = models.DateTimeField(auto_now_add=True)
@@ -17,6 +17,8 @@ class ProxyProviders(models.Model):
     # A timestamp for representing when this object was last updated
     updated_time = models.DateTimeField(auto_now=True)
 
+    #Time Interval
+    time_interval = models.IntegerField('Time Interval for Update the Proxy', default=10)
     old_proxies = models.IntegerField(default=0)
     new_proxies = models.IntegerField(default=0)
 
