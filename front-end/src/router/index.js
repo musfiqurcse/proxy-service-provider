@@ -4,6 +4,15 @@ import Router from 'vue-router'
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
 
+// ProxyProviderContainer
+const ProxyProviderList = () => import('@/views/proxy-provider/ProxyProviderList')
+
+
+
+
+
+
+
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 
@@ -68,6 +77,7 @@ export default new Router({
 
 function configRoutes () {
   return [
+
     {
       path: '/',
       redirect: '/dashboard',
@@ -78,6 +88,22 @@ function configRoutes () {
           path: 'dashboard',
           name: 'Dashboard',
           component: Dashboard
+        },
+        {
+          path: 'proxy-providers',
+          redirect: '/proxy-providers/list',
+          name: 'Proxy List Provider',
+          component: {
+            render(c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: 'list',
+              name: 'Proxy Provider List View',
+              component: ProxyProviderList
+            }]
         },
         {
           path: 'theme',
