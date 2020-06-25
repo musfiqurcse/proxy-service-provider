@@ -6,7 +6,7 @@ class Proxies(TimestampedModel):
 
     proxy_provider_id = models.ForeignKey(ProxyProviders, related_name='proxy_providers_proxy_ids', on_delete=models.CASCADE)
     ip_address = models.CharField(max_length=60, blank=True,null=True, unique=True)
-    port_number = models.CharField(max_length=60, blank=True,null=True)
+    port_number = models.CharField(max_length=60, blank=False,null=False)
     last_successful_functionality_test = models.DateTimeField(blank=True,null=True)
     last_found = models.DateTimeField( blank=True,null=True)
     first_found = models.DateTimeField( blank=True,null=True)

@@ -4,11 +4,15 @@ from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 class ProxyProviderSerializer(ModelSerializer):
     proxy_provider_address = serializers.CharField(required=True, max_length=120, min_length=3)
+    time_interval = serializers.IntegerField(required=True,min_value=10)
     class Meta:
         model=ProxyProviders
         fields = (
+            'id',
             'proxy_provider_address',
-            'is_https_filtered'
+            'is_https_filtered',
+            'time_interval',
+            'updated_time'
         )
         # last_updated_proxy_list = serializers.DateTimeField()
         read_only_fields = ('id','last_updated_proxy_list')
@@ -32,3 +36,4 @@ class ProxyProviderSerializer(ModelSerializer):
             proxy_provider = ProxyProviders.objects.filter(proxy_provider_address=data)
             if len(proxy_provider) > 0 and self.instance.proxy_provider_address != data:
                 raise serializers.ValidationError("This Proxy Address is already exist")
+        return data

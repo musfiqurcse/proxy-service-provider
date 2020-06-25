@@ -9,6 +9,7 @@ class ProxiesSerializer(ModelSerializer):
     class Meta:
         model = Proxies
         fields = (
+            'id',
             'ip_address',
             'port_number',
             'proxy_provider_id',
@@ -29,4 +30,10 @@ class ProxiesSerializer(ModelSerializer):
             proxy= Proxies.objects.filter(ip_address=data)
             if len(proxy) > 0 and self.instance.ip_address != data:
                 raise serializers.ValidationError("This IP Address is already exist")
+        return data
+
+    def validate_port_number(self,data):
+        if data is None or data == '' or len(data) <=1:
+            raise serializers.ValidationError("Please provide a valid port number")
+        return data
 
