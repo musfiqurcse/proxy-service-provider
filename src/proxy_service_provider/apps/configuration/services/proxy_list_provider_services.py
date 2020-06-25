@@ -83,6 +83,31 @@ class ProxyProviderService:
         except Exception as ex:
             return NotFound(ex)
 
+    def get_specific_proxy_provider_information(self, id: int):
+        try:
+            proxy_provider = self.get_a_proxy_list_provider(id)
+            if proxy_provider:
+                return {
+                    'status': True,
+                    'output': {
+                        'id': proxy_provider.id,
+                        'proxy_provider_address': proxy_provider.proxy_provider_address,
+                        'updated_time': proxy_provider.updated_time.strftime('%d.%m.%Y %H:%M'),
+                        'is_https_filtered': proxy_provider.is_https_filtered,
+                        'time_interval': proxy_provider.time_interval,
+                        'old_proxies': proxy_provider.old_proxies,
+                        'new_proxies': proxy_provider.new_proxies,
+                    }
+                }
+            return {
+                'status': True,
+                'output': "No Proxy Provider information Found."
+            }
+
+        except Exception as ex:
+            print(ex)
+            return NotFound(ex)
+
 
     def get_list_of_proxy_provider(self):
         try:

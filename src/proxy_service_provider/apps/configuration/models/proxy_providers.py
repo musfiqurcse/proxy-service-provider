@@ -17,7 +17,7 @@ class ProxyProviders(models.Model):
     # A timestamp for representing when this object was last updated
     updated_time = models.DateTimeField(auto_now=True)
 
-    #Time Interval
+    #Update Time Interval
     time_interval = models.IntegerField('Time Interval for Update the Proxy', default=10)
     old_proxies = models.IntegerField(default=0)
     new_proxies = models.IntegerField(default=0)

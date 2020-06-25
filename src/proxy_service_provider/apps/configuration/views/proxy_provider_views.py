@@ -73,12 +73,33 @@ class ProxyProviderView(ModelViewSet):
                 'output': {}
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @action(detail=False, methods=['GET'], url_name='GET Specific Proxy Provider', url_path='details')
+    def get(self, request, pk):
+        try:
+            proxy_service_provider = ProxyProviderService()
+            output_maker = OutputMaker()
+            output = {
+                'status': False,
+                'output': {}
+            }
+            output = proxy_service_provider.get_specific_proxy_provider_information(id=pk)
+            if output['status'] == True:
+                response_data = output_maker.response_builder(message="", result="success", output=output['output'])
+                return Response(response_data, status=status.HTTP_200_OK)
+            else:
+                response_data = output_maker.response_builder(message=output['output'], result='error', output={})
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as ex:
+            print(ex)
+            print(ex)
+            return Response({
+                'message': "Error occured while processing the request. Server Error",
+                'status': 'error',
+                'output': {}
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-
-
-    @action(detail=False, methods=['GET'], url_name='Update Proxy List Provider', url_path='list')
+    @action(detail=False, methods=['GET'], url_name='Get Proxy List Provider', url_path='list')
     def get_proxy_list_provider(self, request, pk=None):
         try:
             proxy_service_provider = ProxyProviderService()
