@@ -6,6 +6,7 @@ const TheContainer = () => import('@/containers/TheContainer')
 
 // ProxyProviderContainer
 const ProxyProviderList = () => import('@/views/proxy-provider/ProxyProviderList')
+const ProxyProviderDetails = () => import('@/views/proxy-provider/ProxyProviderDetails')
 
 
 
@@ -80,7 +81,7 @@ function configRoutes () {
 
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/proxy-providers/list',
       name: 'Home',
       component: TheContainer,
       children: [
@@ -103,7 +104,13 @@ function configRoutes () {
               path: 'list',
               name: 'Proxy Provider List View',
               component: ProxyProviderList
-            }]
+            },
+            {
+              path: 'details/:id',
+              name: 'Proxy Provider Details',
+              component: ProxyProviderDetails
+            },
+            ]
         },
         {
           path: 'theme',
