@@ -19,14 +19,16 @@ class ProxyFetching():
             # Initialize Session
             session_proxy = requests.Session()
             # Configure UserAgent()
-            session_proxy.headers = {'User-Agent': ua.random}
+            random_ua = ua.random
+            print(random_ua)
+            session_proxy.headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36'}
             # Configure Proxy
             session_proxy.proxies = {
-                'https': 'https://'+concat_proxy_addres,
-                'http': 'http://'+concat_proxy_addres
+                'https': 'https://'+concat_proxy_addres
             }
             # Call IP Checker for Proxy Validity
             res = session_proxy.get(ip_checker,timeout=10).json()
+            print(res)
             # Checking the Origin IP address from the request and Provider proxy is matched or not.
             if res['origin'] == proxy_address:
                 return {'output': "Provided IP  and output from the check IP addess matched \n Input: {0}\nOutput:  {1} ".format(proxy_address,res['origin']),
@@ -104,5 +106,13 @@ chk.fetch_data_from_proxy('https://www.sslproxies.org/')
 https://api.ipify.org?format=json
 https://httpbin.org/ip
 https://ipinfo.io/json
+cmd
+gsettings set org.gnome.system.proxy.https port '8080'
+gsettings set org.gnome.system.proxy.https host '46.4.96.137'
+gsettings set org.gnome.system.proxy mode 'manual'
+gsettings set org.gnome.system.proxy mode 'none'
+
+
+
 
 """

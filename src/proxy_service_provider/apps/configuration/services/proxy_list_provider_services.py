@@ -87,6 +87,18 @@ class ProxyProviderService:
         try:
             proxy_provider = self.get_a_proxy_list_provider(id)
             if proxy_provider:
+                proxies = [
+                    {
+                        'ip_address': i.ip_address,
+                        'port_number': i.port_number,
+                        'last_found': i.last_found.strftime('%d.%m.%Y %H:%M'),
+                        'first_found': i.first_found.strftime('%d.%m.%Y %H:%M'),
+                        'last_successful_functionality_test': i.last_successful_functionality_test.strftime('%d.%m.%Y %H:%M') if i.last_successful_functionality_test else '',
+                        'last_test_id': i.proxy_test_url_ids.last().id if i.proxy_test_url_ids.last() else '',
+
+                    }
+                    for i in proxy_provider.proxy_providers_proxy_ids.all()
+                ]
                 return {
                     'status': True,
                     'output': {
@@ -97,6 +109,7 @@ class ProxyProviderService:
                         'time_interval': proxy_provider.time_interval,
                         'old_proxies': proxy_provider.old_proxies,
                         'new_proxies': proxy_provider.new_proxies,
+                        'proxies': proxies
                     }
                 }
             return {

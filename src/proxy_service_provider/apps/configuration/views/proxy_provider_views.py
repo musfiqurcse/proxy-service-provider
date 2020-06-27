@@ -73,8 +73,8 @@ class ProxyProviderView(ModelViewSet):
                 'output': {}
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @action(detail=False, methods=['GET'], url_name='GET Specific Proxy Provider', url_path='details')
-    def get(self, request, pk):
+    # @action(detail=False, methods=['GET'], url_name='GET Specific Proxy Provider', url_path='details')
+    def retrieve(self, request, pk):
         try:
             proxy_service_provider = ProxyProviderService()
             output_maker = OutputMaker()
