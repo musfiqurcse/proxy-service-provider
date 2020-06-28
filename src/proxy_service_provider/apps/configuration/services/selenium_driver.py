@@ -20,6 +20,7 @@ class SeleniumDriver():
         options.add_argument('start-maximized')
         options.add_argument('disable-infobars')
         options.add_argument("--disable-extensions")
+        print(os.getcwd())
         chrome_driver = os.getcwd() + "/driver/chromedriver"
         self.selenium = webdriver.Chrome(options=options, executable_path=chrome_driver)
 

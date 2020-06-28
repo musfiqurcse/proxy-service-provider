@@ -71,7 +71,7 @@ class ProxyServices:
             for i in proxies:
                 print(i)
                 count +=1
-                output = proxy_fetching.pass_proxy_test(proxy_address=i.ip_address,proxy_port=i.port_number,test_url=test_url_id.test_url_address)
+                output = proxy_fetching.pass_proxy_test(proxy_address=i.ip_address,proxy_port=i.port_number,test_url=test_url_id.test_url_address, json_res=test_url_id.is_output_json)
                 i.is_tested = output['result']
                 i.last_successful_functionality_test = datetime.now()
                 i.save()
