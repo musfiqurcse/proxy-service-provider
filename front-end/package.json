@@ -1,25 +1,25 @@
 {
   "name": "@front-end/proxy-service-proider",
   "version": "3.0.2",
-  "description": "Open Source Bootstrap Admin Template",
+  "description": "Common Platform to Fetch Proxies",
   "author": {
-    "name": "CoreUI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
+    "name": "Proxy Fetcher",
+    "url": "https://musfiqurcse.xyz",
+    "github": "https://github.com/musfiqurcse",
+    "twitter": "https://twitter.com/musfiqurcse"
   },
   "contributors": [
     {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
+      "name": "Md Musfiqur Rahman",
+      "url": "https://github.com/musfiqurcse"
     }
   ],
   "repository": {
     "type": "git",
     "url": "git@github.com:front-end/proxy-service-proider.git"
   },
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2020 creativeLabs Łukasz Holeczek",
+  "homepage": "http://tu-chemnitz.de",
+  "copyright": "TU Chemnitz",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",

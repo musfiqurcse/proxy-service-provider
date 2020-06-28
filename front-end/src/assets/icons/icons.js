@@ -76,15 +76,17 @@ import {
   cilUser,
   cilUserFemale,
   cilUserFollow,
-  cilXCircle
+  cilXCircle,
+  cilSpreadsheet,
 
 } from '@coreui/icons'
-import { logo } from './logo'
+import { logo } from './new_logo'
 
 export const iconsSet = Object.assign(
   {},
   { logo },
   {
+      cilSpreadsheet,
     cilArrowRight,
     cilBan,
     cilBasket,

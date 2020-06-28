@@ -11,24 +11,9 @@
       @click="$store.commit('toggleSidebarDesktop')"
     />
     <CHeaderBrand class="mx-auto d-lg-none" to="/">
-      <CIcon name="logo" height="48" alt="Logo"/>
+      <CIcon name="logo" height="70" alt="Logo"/>
     </CHeaderBrand>
     <CHeaderNav class="d-md-down-none mr-auto">
-      <CHeaderNavItem class="px-3">
-        <CHeaderNavLink to="/dashboard">
-          Dashboard
-        </CHeaderNavLink>
-      </CHeaderNavItem>
-      <CHeaderNavItem class="px-3">
-        <CHeaderNavLink to="/users" exact>
-          Users
-        </CHeaderNavLink>
-      </CHeaderNavItem>
-      <CHeaderNavItem class="px-3">
-        <CHeaderNavLink>
-          Settings
-        </CHeaderNavLink>
-      </CHeaderNavItem>
     </CHeaderNav>
 
     <!--Unncessary file tag removed-->
