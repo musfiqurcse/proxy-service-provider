@@ -7,6 +7,7 @@ const TheContainer = () => import('@/containers/TheContainer')
 // ProxyProviderContainer
 const ProxyProviderList = () => import('@/views/proxy-provider/ProxyProviderList')
 const ProxyProviderDetails = () => import('@/views/proxy-provider/ProxyProviderDetails')
+const FunctionalityTestDetailsView = () => import('@/views/proxy-provider/FunctionalityTestDetailsView')
 const TestUrlList = () => import('@/views/proxy-provider/TestUrlList')
 
 
@@ -398,7 +399,7 @@ const new_pages =  [
               path: 'details/:id',
               name: 'Proxy Provider Details',
               component: ProxyProviderDetails
-            },
+            }
             ]
         }
         ]
@@ -424,6 +425,12 @@ function configRoutes () {
           name: 'TestUrlList',
           component: TestUrlList
         },
+
+        {
+          path: '/functional-details/:id',
+          name: 'Functionality Test Details',
+          component: FunctionalityTestDetailsView
+        },
         {
           path: 'proxy-providers',
           redirect: '/proxy-providers/list',
@@ -441,6 +448,11 @@ function configRoutes () {
             },
             {
               path: 'details/:id',
+              name: 'Proxy Provider Details',
+              component: ProxyProviderDetails
+            },
+            {
+              path: 'functional-details/:id',
               name: 'Proxy Provider Details',
               component: ProxyProviderDetails
             },

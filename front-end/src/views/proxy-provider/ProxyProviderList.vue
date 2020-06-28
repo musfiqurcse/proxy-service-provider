@@ -9,8 +9,8 @@
             >
              Proxy Provider Information Created Successfully
             </CAlert>
-        <CAlert closeButton show color="danger" :show="alert_danger">
-            <strong>Error!</strong> When Creating Proxy Provider Information.
+        <CAlert closeButton :show.sync="dismissCountDown" show color="danger" :show="alert_danger">
+            <strong>Error Occurred!</strong> When Creating Proxy Provider Information.
             <p>{{ error ? error.message : ""}}</p>
         </CAlert>
         <CRow>
@@ -37,7 +37,7 @@
                                                 size="sm"
                                                 @click="redirect_url(item, index)"
                                         >
-                                            <div>Proxy {{ $route.params.id }}</div>  Details
+                                            Details
                                         </CButton>
                                     </td>
                                 </template>

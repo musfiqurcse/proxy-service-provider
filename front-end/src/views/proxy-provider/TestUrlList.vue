@@ -86,6 +86,14 @@
                                     :description="test_url_address.description"
 
                             />
+                            <CInputCheckbox
+                                    v-model="is_output_json"
+                                    label="Is Output JSON"
+                                    :value="true"
+                                    :custom="key > 1"
+                                    :default="true"
+                                    name="Is Https Filtered"
+                            />
 
                         </div>
 
@@ -120,13 +128,14 @@
                 alert_danger: false,
                 isCollapsed: true,
                 test_urls: this.test_urls_props,
-                table_field: ["test_url_provider_name", "test_url_address", "updated_time"
+                table_field: ["test_url_provider_name", "test_url_address","is_output_json", "updated_time"
                 ],
                 test_url_address: {
                     value: null,
                     description: null,
                     was_validated: null,
                 },
+                is_output_json: null,
                 test_url_provider_name: {
                     value: null,
                     description: null,
@@ -161,10 +170,12 @@
               const fields = this
               fields.success = null
               fields.error = null
+              console.log(fields.is_output_json)
               axios.post('http://localhost:8000/api/test-url/', {
                   data: {
                      test_url_provider_name: fields.test_url_provider_name.value,
-                     test_url_address: fields.test_url_address.value
+                     test_url_address: fields.test_url_address.value,
+                     is_output_json: fields.is_output_json.target.checked,
 
                   }
               }).then(function(response){

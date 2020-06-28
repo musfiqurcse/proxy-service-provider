@@ -3,42 +3,54 @@ from bs4 import BeautifulSoup
 from .selenium_driver import SeleniumDriver
 from fake_useragent import UserAgent
 import re
+import os
 
-
+import json
 class ProxyFetching():
 
 
     def __init__(self):
         pass
 
-    def pass_proxy_test(self, proxy_address: str, proxy_port: str, ip_checker: str):
+    def pass_proxy_test(self, proxy_address: str, proxy_port: str, test_url: str, json_res=True):
         try:
             # Initialize User Agent
-            ua = UserAgent()
+            # ua = UserAgent()
             concat_proxy_addres = proxy_address + ':'+ proxy_port
             # Initialize Session
             session_proxy = requests.Session()
             # Configure UserAgent()
-            random_ua = ua.random
-            print(random_ua)
+            # random_ua = ua.random
+            # print(random_ua)
             session_proxy.headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36'}
             # Configure Proxy
             session_proxy.proxies = {
                 'https': 'https://'+concat_proxy_addres
             }
             # Call IP Checker for Proxy Validity
-            res = session_proxy.get(ip_checker,timeout=10).json()
-            print(res)
-            # Checking the Origin IP address from the request and Provider proxy is matched or not.
-            if res['origin'] == proxy_address:
-                return {'output': "Provided IP  and output from the check IP addess matched \n Input: {0}\nOutput:  {1} ".format(proxy_address,res['origin']),
-                        'result': True}
-            # As the output of the test IP address is not matched hence it is not passed the test cases.
-            return {
-                'output': "Provided IP and output from the check IP addess does not match\n Input: {0}\nOutput:  {1} ".format(proxy_address,res['origin']),
-                'result': False
-            }
+            count = 0
+            data = {}
+            while count < 3:
+                try:
+
+                    os.system("gsettings set org.gnome.system.proxy.https port '{0}'".format(proxy_port))
+                    os.system("gsettings set org.gnome.system.proxy.https host '{0}'".format(proxy_address))
+                    os.system("gsettings set org.gnome.system.proxy mode 'manual'")
+                    res = session_proxy.get(test_url,timeout=10).json()
+                    print(res)
+                    data = {
+                        'output': json.dumps(res),
+                        'result': True
+                    }
+                except Exception as ex:
+                    data = {'output': str(ex), 'result': False}
+                finally:
+                    count +=1
+                    if data['result'] == True or count >=3:
+                        os.system("gsettings set org.gnome.system.proxy mode 'none'")
+                        return data
         except Exception as ex:
+            os.system("gsettings set org.gnome.system.proxy mode 'none'")
             print('Error Occurred while testing proxy')
             return {'output': ex, 'result': False}
 

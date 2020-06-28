@@ -1,8 +1,11 @@
 from proxy_service_provider.apps.configuration.serializers.proxy_serializer import ProxiesSerializer
 from proxy_service_provider.apps.configuration.models.proxies import  Proxies
+from proxy_service_provider.apps.configuration.models.test_url import  TestURL
+from proxy_service_provider.apps.configuration.models.proxy_functionality_test import  ProxyFunctionalityTest
+from proxy_service_provider.apps.configuration.services.proxy_fetcher import  ProxyFetching
 from django.db.models import Q
 from datetime import datetime
-
+import time
 
 class ProxyServices:
 
@@ -57,10 +60,35 @@ class ProxyServices:
         return counter+existed_proxies
 
 
+    def perform_functionality_test(self, provider_id: id, test_url_id: id):
+        try:
+            proxies = Proxies.objects.filter(proxy_provider_id=provider_id)
+            test_url_id = TestURL.objects.get(id=test_url_id)
+            proxy_fetching = ProxyFetching()
+            count = 0
+            for i in proxies:
+                print(i)
+                count +=1
+                output = proxy_fetching.pass_proxy_test(proxy_address=i.ip_address,proxy_port=i.port_number,test_url=test_url_id.test_url_address)
+                i.is_tested = output['result']
+                i.last_successful_functionality_test = datetime.now()
+                i.save()
+                result_data = {
+                    'proxy_id': i,
+                    'test_url_id':test_url_id,
+                    'is_test_passed': output['result'],
+                    'test_mesasge': output['output']
+                }
+                print(result_data)
+                func_test = ProxyFunctionalityTest(**result_data)
+                func_test.save()
+            return None
+        except Exception as ex:
+            print(ex)
+            return None
 
     def create(self, kw: dict):
         """
-
         :type kw: object
         """
         proxy = ProxiesSerializer(data=kw)
