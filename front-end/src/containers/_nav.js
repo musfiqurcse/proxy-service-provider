@@ -1,4 +1,4 @@
-export default [
+const current_data = [
   {
     _name: 'CSidebarNav',
     _children: [
@@ -20,7 +20,7 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Proxy List Provider',
         to: '/proxy-providers/list',
-        icon: 'cil-drop'
+        icon: 'cil-spreadsheet'
       },
       {
         _name: 'CSidebarNavItem',
@@ -65,7 +65,7 @@ export default [
           {
             name: 'Carousels',
             to: '/base/carousels'
-          }, 
+          },
           {
             name: 'Collapses',
             to: '/base/collapses'
@@ -256,3 +256,29 @@ export default [
     ]
   }
 ]
+const new_data = [
+  {
+    _name: 'CSidebarNav',
+    _children: [
+      {
+        _name: 'CSidebarNavTitle',
+        _children: ['Proxy Service Management']
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Proxy List Provider',
+        to: '/proxy-providers/list',
+        icon: 'cil-spreadsheet'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Test URL',
+        to: '/test-url/',
+        icon: 'cil-spreadsheet'
+      },
+    ]
+  }
+]
+
+
+export default new_data
