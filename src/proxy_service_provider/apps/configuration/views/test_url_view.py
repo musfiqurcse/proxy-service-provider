@@ -18,6 +18,7 @@ class TestURLView(ModelViewSet):
     serializer_class = TestURLSerializer
 
 
+
     def create(self, request):
         try:
             # TODO: Implement the POST Request.
@@ -74,32 +75,3 @@ class TestURLView(ModelViewSet):
                 'output': {}
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-    @action(detail=False, methods=['GET'], url_name='Get a Specific Functionality Test', url_path='func-test')
-    def get_proxy_list_provider(self, request, pk=None):
-        try:
-            test_urls = TestURL.objects.all()
-            output_maker = OutputMaker()
-            output = {
-                'status': False,
-                'output': {}
-            }
-            response_data = []
-            for i in test_urls:
-                data = {
-                    'id': i.id,
-                    'test_url_address': i.test_url_address,
-                    'updated_time': i.updated_time.strftime('%d.%m.%Y %H:%M'),
-                    'test_url_provider_name': i.test_url_provider_name,
-                    'is_output_json': i.is_output_json
-                }
-                response_data.append(data)
-            response_data = output_maker.response_builder(message="", result="success", output=response_data)
-            return Response(response_data, status=status.HTTP_200_OK)
-        except Exception as ex:
-            print(ex)
-            return Response({
-                'message': "Error occured while processing the request. Server Error",
-                'status': 'error',
-                'output': {}
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

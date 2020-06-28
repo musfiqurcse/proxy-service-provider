@@ -52,8 +52,13 @@ class ProxyProviderService:
     def update_proxy_list_provider_with_proxies(self, proxy_provider_id, data: dict):
         try:
             initial_proxy_list_provider = self.get_a_proxy_list_provider(id = proxy_provider_id)
-            last_updated_time = initial_proxy_list_provider.updated_time + timedelta(minutes=initial_proxy_list_provider.time_interval)
-            if last_updated_time < datetime.now():
+            last_updated_time = initial_proxy_list_provider.last_updated_proxy_list + timedelta(minutes=initial_proxy_list_provider.time_interval) if initial_proxy_list_provider.last_updated_proxy_list else datetime.now()
+            if initial_proxy_list_provider.functionality_test_state == 'running':
+                return {
+                    'status': False,
+                    'output': "You cannot update a proxy list provider while a test session is running"
+                }
+            elif last_updated_time < datetime.now():
                 proxy_list_provider = ProxyProviderSerializer(initial_proxy_list_provider, data=data)
                 if proxy_list_provider.is_valid():
                     updated_proxy_list_provider = proxy_list_provider.save()
@@ -63,6 +68,7 @@ class ProxyProviderService:
                     proxy_services = ProxyServices()
                     total_new_proxies = proxy_services.bulk_update(proxy_provider_id=initial_proxy_list_provider.id,ip_list=proxy_list)
                     initial_proxy_list_provider.new_proxies = total_new_proxies
+                    initial_proxy_list_provider.last_updated_proxy_list = datetime.now()
                     initial_proxy_list_provider.save()
                     struct_data = json.loads(serialize('json', [initial_proxy_list_provider, ]))
                     output_result = struct_data[0]['fields']
@@ -110,6 +116,7 @@ class ProxyProviderService:
                         'time_interval': proxy_provider.time_interval,
                         'old_proxies': proxy_provider.old_proxies,
                         'new_proxies': proxy_provider.new_proxies,
+                        'functionality_test_state': proxy_provider.functionality_test_state,
                         'proxies': proxies
                     }
                 }
@@ -147,16 +154,30 @@ class ProxyProviderService:
     def perform_functionality_test(self, provider_id: int, test_url_id: int):
         try:
             proxy =ProxyServices()
-            test_task = threading.Thread(target=proxy.perform_functionality_test,args=[provider_id,test_url_id])
-            test_task.setDaemon(True)
-            test_task.start()
-            response = {
-                'status': True,
-                'output': [{
-                    'result': 'True'
-                }]
-            }
-            return response
+            proxy_provider = ProxyProviders.objects.get(id=provider_id)
+            if proxy_provider and proxy_provider.functionality_test_state !='running':
+                test_task = threading.Thread(target=proxy.perform_functionality_test,
+                                             args=[proxy_provider, test_url_id])
+                test_task.setDaemon(True)
+                test_task.start()
+                return {
+                    'status': True,
+                    'output': {
+                        'id': proxy_provider.id,
+                        'proxy_provider_address': proxy_provider.proxy_provider_address,
+                        'updated_time': proxy_provider.updated_time.strftime('%d.%m.%Y %H:%M'),
+                        'is_https_filtered': proxy_provider.is_https_filtered,
+                        'time_interval': proxy_provider.time_interval,
+                        'old_proxies': proxy_provider.old_proxies,
+                        'new_proxies': proxy_provider.new_proxies,
+                        'functionality_test_state': 'running'
+                    }
+                }
+            else:
+                return {
+                    'status': False,
+                    'output': "A Test session is running for this Proxy Service Provider. Please wait for couple of minutes"
+                }
         except Exception as ex:
             return NotFound("Error Occured while Performing Testing")
 

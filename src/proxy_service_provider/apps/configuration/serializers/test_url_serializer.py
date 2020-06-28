@@ -15,3 +15,15 @@ class TestURLSerializer(ModelSerializer):
             'is_output_json',
             'updated_time',
         )
+
+
+    def validate_test_url_address(self,data):
+        if self.instance is None:
+            test_url_address= TestURL.objects.filter(test_url_address=data)
+            if len(test_url_address) > 0:
+                raise serializers.ValidationError("This TEST URL Address is already exist")
+        else:
+            test_url_address = TestURL.objects.filter(test_url_address=data)
+            if len(test_url_address) > 0 and self.instance.test_url_address != data:
+                raise serializers.ValidationError("This TEST URL Address is already exist")
+        return data
