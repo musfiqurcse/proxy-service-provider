@@ -1,14 +1,14 @@
 <template>
     <div>
-       <CAlert
-              :show.sync="dismissCountDown"
-              closeButton
-              color="success"
-              fade
-              :show="alert_success"
-            >
-             Proxy Provider Information Created Successfully
-            </CAlert>
+        <CAlert
+                :show.sync="dismissCountDown"
+                closeButton
+                color="success"
+                fade
+                :show="alert_success"
+        >
+            Proxy Provider Information Created Successfully
+        </CAlert>
         <CAlert closeButton :show.sync="dismissCountDown" show color="danger" :show="alert_danger">
             <strong>Error Occurred!</strong> When Creating Proxy Provider Information.
             <p>{{ error ? error.message : ""}}</p>
@@ -67,6 +67,7 @@
                             <CRow>
                                 <CCol md="12">
                                     <CInput
+                                            key="proxy_provider_address"
                                             :was-validated="proxy_provider_address.was_validated"
                                             :is-valid="proxy_provider_address.was_validated"
                                             :description="proxy_provider_address.description"
@@ -77,6 +78,7 @@
                                 </CCol>
                             </CRow>
                             <CInput
+                                    key="time_interval"
                                     v-model="time_interval.value"
                                     label="Update Time Interval"
                                     placeholder="Enter Time Interval"
@@ -90,7 +92,7 @@
                             <CInputCheckbox
                                     v-model="is_https_filtered"
                                     label="Is Https Filtered"
-                                    :value="option"
+                                    :value="true"
                                     :custom="key > 1"
                                     name="Is Https Filtered"
                             />
@@ -155,17 +157,17 @@
         },
         methods: {
             countDownChanged (dismissCountDown) {
-                  this.dismiss = dismissCountDown
-                },
+                this.dismiss = dismissCountDown
+            },
             updateTableData: function(){
                 const field = this
-            axios.get('http://localhost:8000/api/proxy-service-provider/list/').then(function(response){
-                    field.proxy_providers = response.data.output
-                    console.log(response.data.output)
-                }
-            ).catch(error => this.proxy_providers = {
-                'error': 'Error Occurred'
-            })
+                axios.get('http://localhost:8000/api/proxy-service-provider/list/').then(function(response){
+                        field.proxy_providers = response.data.output
+                        console.log(response.data.output)
+                    }
+                ).catch(error => this.proxy_providers = {
+                    'error': 'Error Occurred'
+                })
             },
             redirect_url: function (item, index) {
                 console.log(index)
@@ -179,26 +181,49 @@
                 this.proxy_provider_address.was_validated = false
                 this.proxy_provider_address.description = 'Please provide a valid proxy provider address'
 
+
             },
             submitProxyAddress: function(){
-              const fields = this
-              fields.success = null
-              fields.error = null
-              console.log(fields.is_https_filtered.checked)
-              axios.post('http://localhost:8000/api/proxy-service-provider/', {
-                  data: {
-                     proxy_provider_address: fields.proxy_provider_address.value,
-                     time_interval: fields.time_interval.value,
-                     is_https_filtered: fields.is_https_filtered.target.checked,
+                const fields = this
+                fields.success = null
+                fields.error = null
 
-                  }
-              }).then(function(response){
+                fields.proxy_provider_address.was_validated = true
+                fields.time_interval.was_validated = true
+                fields.proxy_provider_address.description = ''
+                fields.time_interval.description = ''
+                console.log(fields.is_https_filtered)
+                axios.post('http://localhost:8000/api/proxy-service-provider/', {
+                    data: {
+                        proxy_provider_address: fields.proxy_provider_address.value,
+                        time_interval: fields.time_interval.value,
+                        is_https_filtered: fields.is_https_filtered === false || fields.is_https_filtered === null  ? false : true,
+
+                    }
+                }).then(function(response){
                     fields.success = response.data
                     fields.myModal = false
+                    fields.alert_success = true;
+
+                    fields.proxy_provider_address.was_validated = null
+                    fields.time_interval.was_validated = null
+                    fields.proxy_provider_address.description = ''
+                    fields.proxy_provider_address.value = ''
+                    fields.time_interval.description = ''
+                    fields.time_interval.value = ''
                     fields.updateTableData();
-              }).catch(function(response){
-                  fields.error = response.data
-              })
+                }).catch(function(error){
+                    fields.error = error.response.data.message;
+                    if(fields.error.hasOwnProperty('proxy_provider_address')){
+                        fields.proxy_provider_address.was_validated = false
+                        fields.proxy_provider_address.description = 'Please provide a valid proxy provider address'
+                    }
+                    if(fields.error.hasOwnProperty('time_interval')){
+                        fields.time_interval.was_validated = false
+                        fields.time_interval.description = 'Please provide a valid time_interval'
+                    }
+                })
+
 
             }
 

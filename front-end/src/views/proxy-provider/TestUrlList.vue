@@ -89,10 +89,9 @@
                             <CInputCheckbox
                                     v-model="is_output_json"
                                     label="Is Output JSON"
-                                    :value="true"
                                     :custom="key > 1"
-                                    :default="true"
                                     name="Is Https Filtered"
+                                    :default="true"
                             />
 
                         </div>
@@ -170,20 +169,37 @@
               const fields = this
               fields.success = null
               fields.error = null
+              fields.test_url_provider_name.was_validated = true
+                        fields.test_url_address.was_validated = true
+                        fields.test_url_provider_name.description = ''
+                        fields.test_url_address.description = ''
               console.log(fields.is_output_json)
               axios.post('http://localhost:8000/api/test-url/', {
                   data: {
                      test_url_provider_name: fields.test_url_provider_name.value,
                      test_url_address: fields.test_url_address.value,
-                     is_output_json: fields.is_output_json.target.checked,
+                     is_output_json: fields.is_output_json === false || fields.is_output_json === null   ? false : true,
 
                   }
               }).then(function(response){
                     fields.success = response.data
                     fields.myModal = false
+                    fields.test_url_provider_name.was_validated = null
+                    fields.test_url_address.was_validated = null
+                    fields.test_url_provider_name.value = ''
+                    fields.test_url_address.value = ''
                     fields.updateTableData();
-              }).catch(function(response){
-                  fields.error = response.data
+              }).catch(function(error){
+                  fields.error = error.response.data.message
+                  console.log(fields.error)
+                   if(fields.error.hasOwnProperty('test_url_provider_name')){
+                        fields.test_url_provider_name.was_validated = false
+                        fields.test_url_provider_name.description = 'Please provide a valid test url provider name'
+                    }
+                    if(fields.error.hasOwnProperty('test_url_address')){
+                        fields.test_url_address.was_validated = false
+                        fields.test_url_address.description = 'Please provide a valid Test URL Address'
+                    }
               })
 
             }

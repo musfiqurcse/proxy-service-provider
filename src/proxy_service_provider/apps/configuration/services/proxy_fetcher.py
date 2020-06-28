@@ -36,12 +36,18 @@ class ProxyFetching():
                     os.system("gsettings set org.gnome.system.proxy.https port '{0}'".format(proxy_port))
                     os.system("gsettings set org.gnome.system.proxy.https host '{0}'".format(proxy_address))
                     os.system("gsettings set org.gnome.system.proxy mode 'manual'")
-                    res = session_proxy.get(test_url,timeout=10).json()
+                    res = session_proxy.get(test_url,timeout=10)
                     print(res)
-                    data = {
-                        'output': json.dumps(res),
-                        'result': True
-                    }
+                    if json_res:
+                        data = {
+                            'output': json.dumps(res.json()),
+                            'result': True
+                        }
+                    else:
+                        data = {
+                            'output': json.dumps(res.text),
+                            'result': True
+                        }
                 except Exception as ex:
                     data = {'output': str(ex), 'result': False}
                 finally:

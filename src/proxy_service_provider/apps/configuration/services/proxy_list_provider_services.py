@@ -100,8 +100,8 @@ class ProxyProviderService:
                         'last_found': i.last_found.strftime('%d.%m.%Y %H:%M'),
                         'first_found': i.first_found.strftime('%d.%m.%Y %H:%M'),
                         'last_successful_functionality_test': i.last_successful_functionality_test.strftime('%d.%m.%Y %H:%M') if i.last_successful_functionality_test else '',
-                        'last_test_id': i.proxy_test_url_ids.last().id if i.proxy_test_url_ids.last() else '',
-                        'is_test_passed': i.proxy_test_url_ids.last().is_test_passed if i.proxy_test_url_ids.last() else '',
+                        'last_test_id': i.proxy_test_url_ids.first().id if i.proxy_test_url_ids.last() else '',
+                        'is_test_passed': i.proxy_test_url_ids.first().is_test_passed if i.proxy_test_url_ids.last() else '',
 
                     }
                     for i in proxy_provider.proxy_providers_proxy_ids.all()
