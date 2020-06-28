@@ -60,9 +60,11 @@ class ProxyServices:
         return counter+existed_proxies
 
 
-    def perform_functionality_test(self, provider_id: id, test_url_id: id):
+    def perform_functionality_test(self, proxy_provider, test_url_id: id):
         try:
-            proxies = Proxies.objects.filter(proxy_provider_id=provider_id)
+            proxy_provider.functionality_test_state = 'running'
+            proxy_provider.save()
+            proxies = Proxies.objects.filter(proxy_provider_id=proxy_provider.id)
             test_url_id = TestURL.objects.get(id=test_url_id)
             proxy_fetching = ProxyFetching()
             count = 0
@@ -82,6 +84,8 @@ class ProxyServices:
                 print(result_data)
                 func_test = ProxyFunctionalityTest(**result_data)
                 func_test.save()
+            proxy_provider.functionality_test_state = 'completed'
+            proxy_provider.save()
             return None
         except Exception as ex:
             print(ex)
