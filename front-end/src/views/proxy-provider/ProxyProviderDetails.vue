@@ -27,9 +27,22 @@
                                         bordered
                                         pagination
                             >
+                            <template #is_test_passed="{item, index}">
+                                <td class="py-2">
+                                    <div  v-if="Boolean(item.last_test_id)">
+
+                                    <p v-if="Boolean(item.is_test_passed)">
+                                            <CBadge color="success">Passed</CBadge>
+                                    </p>
+                                    <p v-else>
+                                        <CBadge color="danger">Failed</CBadge>
+                                    </p>
+                                    </div>
+                                </td>
+                            </template>
                             <template #show_details="{item, index}">
                                 <td class="py-2">
-                                    <CButton
+                                    <CButton v-if="Boolean(item.last_test_id)"
                                             color="success"
                                             square
                                             size="sm"
@@ -77,7 +90,7 @@
                 isCollapsed: true,
                 proxy_providers: null,
                 proxies: null,
-                table_field: ["ip_address", "port_number","last_found", "first_found", "last_successful_functionality_test", {
+                table_field: ["ip_address", "port_number","last_found", "first_found", "last_successful_functionality_test","is_test_passed", {
                     key: 'show_details',
                     label: 'Last Test Details',
                     _style: 'width:10%',
@@ -90,7 +103,7 @@
             redirect_url: function (item, index) {
                 console.log(index)
                 console.log(item)
-                this.$router.push({ path: `details/${item.id}`})
+                this.$router.push({ path: `/functional-details/${item.last_test_id}`})
             }
         }
     }

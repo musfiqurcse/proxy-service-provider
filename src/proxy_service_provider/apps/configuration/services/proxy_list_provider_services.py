@@ -8,7 +8,7 @@ from proxy_service_provider.apps.configuration.services.proxy_services import Pr
 from  proxy_service_provider.apps.configuration.models.proxy_providers import ProxyProviders
 from datetime import datetime
 from datetime import timedelta
-
+import threading
 
 class ProxyProviderService:
 
@@ -95,6 +95,7 @@ class ProxyProviderService:
                         'first_found': i.first_found.strftime('%d.%m.%Y %H:%M'),
                         'last_successful_functionality_test': i.last_successful_functionality_test.strftime('%d.%m.%Y %H:%M') if i.last_successful_functionality_test else '',
                         'last_test_id': i.proxy_test_url_ids.last().id if i.proxy_test_url_ids.last() else '',
+                        'is_test_passed': i.proxy_test_url_ids.last().is_test_passed if i.proxy_test_url_ids.last() else '',
 
                     }
                     for i in proxy_provider.proxy_providers_proxy_ids.all()
@@ -141,6 +142,24 @@ class ProxyProviderService:
         except Exception as ex:
             print(ex)
             return NotFound(ex)
+
+
+    def perform_functionality_test(self, provider_id: int, test_url_id: int):
+        try:
+            proxy =ProxyServices()
+            test_task = threading.Thread(target=proxy.perform_functionality_test,args=[provider_id,test_url_id])
+            test_task.setDaemon(True)
+            test_task.start()
+            response = {
+                'status': True,
+                'output': [{
+                    'result': 'True'
+                }]
+            }
+            return response
+        except Exception as ex:
+            return NotFound("Error Occured while Performing Testing")
+
 
     def view_proxy(self, ):
         try:
