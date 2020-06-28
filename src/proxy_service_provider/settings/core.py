@@ -134,30 +134,30 @@ HTTPS_PROXY="https://133.130.111.34:60088"
 STATIC_URL = '/static/'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'USER': 'proxy_service_provider_rw',
-#         'NAME': 'proxy_service_provider',
-#         'PASSWORD': 'mae3Feevoh',
-#         'PORT': '5432',
-#         'HOST': 'pgsql.hrz.tu-chemnitz.de',
-#         'TEST': {
-#             'NAME': 'proxy_service_provider_test',
-#         },
-#     },
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proxy_db_1',
-        'USER': 'musfiq',
-        'PASSWORD': 'm123456',
-        'HOST': 'localhost',
+        'USER': 'proxy_service_provider_rw',
+        'NAME': 'proxy_service_provider',
+        'PASSWORD': 'mae3Feevoh',
         'PORT': '5432',
-    }
+        'HOST': 'pgsql.hrz.tu-chemnitz.de',
+        'TEST': {
+            'NAME': 'proxy_service_provider_test',
+        },
+    },
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'proxy_db_1',
+#         'USER': 'musfiq',
+#         'PASSWORD': 'm123456',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 CORS_ORIGIN_ALLOW_ALL = True
