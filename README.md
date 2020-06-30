@@ -1,4 +1,4 @@
-# proxy-service-provider
+# PROXY-SERVICE-PROVIDER
 Proxy Service Provider is an applcation to fetch proxies from different proxy provider site (HTTP(s) Proxies) and perform Functional test by configuring Proxy in OS Network Level to ensure the anonymality at core level
 
 ## Installation
