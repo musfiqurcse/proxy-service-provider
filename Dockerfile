@@ -1,7 +1,11 @@
 FROM python:3.7.8-alpine3.11
 MAINTAINER md_musfiqur_rahman
 
+
 ENV PYTHONUNBUFFERED 1
+
+RUN \
+    apk add --no-cache python3-pip python3-dev libpq-dev
 
 RUN \
     python3 -m pip install --no-cache-dir Cython

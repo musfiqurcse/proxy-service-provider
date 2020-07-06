@@ -33,9 +33,9 @@ class ProxyFetching():
             while count < 3:
                 try:
 
-                    os.system("gsettings set org.gnome.system.proxy.https port '{0}'".format(proxy_port))
-                    os.system("gsettings set org.gnome.system.proxy.https host '{0}'".format(proxy_address))
-                    os.system("gsettings set org.gnome.system.proxy mode 'manual'")
+                    # os.system("gsettings set org.gnome.system.proxy.https port '{0}'".format(proxy_port))
+                    # os.system("gsettings set org.gnome.system.proxy.https host '{0}'".format(proxy_address))
+                    # os.system("gsettings set org.gnome.system.proxy mode 'manual'")
                     res = session_proxy.get(test_url,timeout=10)
                     print(res)
                     if json_res:
@@ -53,10 +53,10 @@ class ProxyFetching():
                 finally:
                     count +=1
                     if data['result'] == True or count >=3:
-                        os.system("gsettings set org.gnome.system.proxy mode 'none'")
+                        # os.system("gsettings set org.gnome.system.proxy mode 'none'")
                         return data
         except Exception as ex:
-            os.system("gsettings set org.gnome.system.proxy mode 'none'")
+            # os.system("gsettings set org.gnome.system.proxy mode 'none'")
             print('Error Occurred while testing proxy')
             return {'output': ex, 'result': False}
 
