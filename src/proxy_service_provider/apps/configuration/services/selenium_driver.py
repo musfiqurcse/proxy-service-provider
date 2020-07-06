@@ -27,15 +27,6 @@ class SeleniumDriver():
     def tearDown(self):
         self.selenium.quit()
 
-    # def clicking(self, stri):
-    #     selenium = self.selenium
-    #     selenium.get('https://www.bing.com/')
-    #     time.sleep(4)
-    #     search_box = selenium.find_element_by_id('sb_form_q')
-    #     search_box.send_keys(stri)
-    #     time.sleep(2)
-    #     search_box.send_keys(Keys.RETURN)
-
     def extract_url(self,url):
         # self.sign_in()
         selenium = self.selenium
