@@ -12,7 +12,7 @@ https://proxygather.com/
 http://nntime.com/ [not captured]
 https://proxytools.online/proxy-list/ [18][done]
 https://hidemy.life/en/proxy-list-servers[200] [done]
-
+https://premproxy.com/list/
 
 API
 
