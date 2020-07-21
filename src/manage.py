@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    # configure the settings from the command argument
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proxy_service_provider.settings.core')
     try:
         from django.core.management import execute_from_command_line
